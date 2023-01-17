@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from django import forms
 # Register your models here.
 from core.models import Person, Course, Grade
 from django.db.models import Avg
@@ -7,11 +7,25 @@ from django.utils.html import format_html
 from django.urls import reverse
 from django.utils.http import urlencode
 
+
+class PersonAdminForm(forms.ModelForm):
+    class Meta:
+        model = Person
+        fields = "__all__"
+
+    def clean_first_name(self):
+        if self.cleaned_data["first_name"] == "Spike":
+            raise forms.ValidationError("No Vampires")
+
+        return self.cleaned_data["first_name"]
+
+
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
     list_display = ("last_name", "first_name", "show_average")
     search_fields = ("last_name__startswith", )
     fields = ("first_name", "last_name", "courses")
+    form = PersonAdminForm
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
