@@ -10,6 +10,7 @@ from django.utils.http import urlencode
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
     list_display = ("last_name", "first_name", "show_average")
+    search_fields = ("last_name__startswith", )
 
     def show_average(self, obj):
         result = Grade.objects.filter(person=obj).aggregate(Avg("grade"))
