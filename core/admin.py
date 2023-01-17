@@ -1,3 +1,24 @@
 from django.contrib import admin
 
 # Register your models here.
+from core.models import Person, Course, Grade
+
+
+@admin.register(Person)
+class PersonAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Course)
+class CourseAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Grade)
+class GradeAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(Person)
+admin.site.register(Course)
+admin.site.register(Grade)
