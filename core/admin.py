@@ -18,7 +18,3 @@ class CourseAdmin(admin.ModelAdmin):
 class GradeAdmin(admin.ModelAdmin):
     pass
 
-
-admin.site.register(Person)
-admin.site.register(Course)
-admin.site.register(Grade)
