@@ -11,6 +11,12 @@ from django.utils.http import urlencode
 class PersonAdmin(admin.ModelAdmin):
     list_display = ("last_name", "first_name", "show_average")
     search_fields = ("last_name__startswith", )
+    fields = ("first_name", "last_name", "courses")
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        form.base_fields["first_name"].label = "First Name (Hello There!)"
+        return form
 
     def show_average(self, obj):
         result = Grade.objects.filter(person=obj).aggregate(Avg("grade"))
